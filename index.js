@@ -12,16 +12,25 @@ const io = socketio(server);
 
 const PORT = process.env.PORT || 3000; // Use PORT from environment variables or default to 3000
 
+// io.on("connection", (socket) => {
+//   console.log("A user connected", socket.id);
+
+//   socket.on("from_client", () => {
+//     console.log("Event Coming From CLient");
+//   });
+
+//   setInterval(() => {
+//     socket.emit("from_server");
+//   }, 2000);
+// });
+
 io.on("connection", (socket) => {
-  console.log("A user connected", socket.id);
+  console.log("a User Connected", socket.id);
 
-  socket.on("from_client", () => {
-    console.log("Event Coming From CLient");
+  socket.on("msg_send", (data) => {
+    console.log(data);
+    io.emit("msg_rcvd", data);
   });
-
-  setInterval(() => {
-    socket.emit("from_server");
-  }, 2000);
 });
 
 app.use("/", express.static(__dirname + "/public"));
