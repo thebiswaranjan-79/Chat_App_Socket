@@ -21,3 +21,9 @@ btn.onclick = function exec() {
     msg: inputMsg.value,
   });
 };
+
+socket.on("msg_rcvd", (data) => {
+  let limsg = document.createElement("li");
+  limsg.innerText = data.msg;
+  msglist.appendChild(limsg);
+});
